@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".solution", ".solution", "{
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
 		..\paket.dependencies = ..\paket.dependencies
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gaspra.SlackApi", "Gaspra.SlackApi\Gaspra.SlackApi.csproj", "{1B7FD5DF-8843-4118-B0DB-151AFC953B86}"
