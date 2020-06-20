@@ -1,4 +1,5 @@
-﻿using Gaspra.SlackApi.Models.Responses;
+﻿using Gaspra.SlackApi.Models;
+using Gaspra.SlackApi.Models.Responses;
 using Refit;
 using System.Threading.Tasks;
 
@@ -17,6 +18,12 @@ namespace Gaspra.SlackApi.Interfaces
 
         [Post("/api/chat.postMessage")]
         Task PostMessage(
+            [AliasAs("channel")]string channelId,
+            [AliasAs("text")]string message
+            );
+
+        [Post("/api/chat.postMessage")]
+        Task<SlackMessage> PostMessageAndReturnDetails(
             [AliasAs("channel")]string channelId,
             [AliasAs("text")]string message
             );

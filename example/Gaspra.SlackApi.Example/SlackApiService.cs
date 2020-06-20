@@ -1,7 +1,10 @@
-﻿using Gaspra.SlackApi.Interfaces;
+﻿using Gaspra.SlackApi.Extensions;
+using Gaspra.SlackApi.Interfaces;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,27 +25,11 @@ namespace Gaspra.SlackApi.Example
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            var channelResponse = await slackApi.GetChannels(token);
-
-            var channel = channelResponse
-                .Channels
-                .Where(c => c.Name.Equals(channelName))
-                .FirstOrDefault();
+            var channel = await slackApi.GetSlackChannelWithName(token, channelName);
 
             if (channel == null) throw new Exception($"Unable to find channel with name: {channelName}");
 
-            var guidToPost = Guid.NewGuid();
-
-            await slackApi.PostMessage(token, channel.Id, $":smiley: I'm posting to {channelName} [{guidToPost}]");
-
-            var conversationHistory = await slackApi.GetConversationHistory(token, channel.Id);
-
-            var message = conversationHistory
-                .Messages
-                .Where(m => m.Text.EndsWith($"[{guidToPost}]"))
-                .FirstOrDefault();
-
-            if (message == null) throw new Exception($"Unable to find message ending with: [{guidToPost}]");
+            var message = await slackApi.PostMessageAndReturnDetails(token, channel.Id, $":smiley: I'm posting to the `{channelName}` channel");
 
             for (var i = 0; i < 5; i++)
             {
