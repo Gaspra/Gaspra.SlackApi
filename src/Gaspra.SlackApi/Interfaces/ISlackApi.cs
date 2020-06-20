@@ -8,12 +8,12 @@ namespace Gaspra.SlackApi.Interfaces
     public interface ISlackApi
     {
         [Get("/api/conversations.list")]
-        Task<ChannelsResponse> GetChannels(
+        Task<SlackChannelsResponse> GetChannels(
             [AliasAs("token")]string token
             );
 
         [Get("/api/conversations.history")]
-        Task<ConversationHistoryResponse> GetConversationHistory(
+        Task<SlackConversationHistoryResponse> GetConversationHistory(
             [AliasAs("token")]string token,
             [AliasAs("channel")]string channelId
             );

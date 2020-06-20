@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Gaspra.SlackApi.Models.Responses
 {
-    public class ConversationHistoryResponse
+    public class SlackChannelsResponse
     {
         [JsonProperty("ok")]
         public bool Ok { get; set; }
-        [JsonProperty("messages")]
-        public IEnumerable<SlackMessage> Messages { get; set; }
+        [JsonProperty("channels")]
+        public IEnumerable<SlackChannel> Channels { get; set; }
     }
 }

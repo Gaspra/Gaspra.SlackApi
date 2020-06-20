@@ -9,10 +9,10 @@ namespace Gaspra.SlackApi.Interfaces
     public interface IAuthorisedSlackApi
     {
         [Get("/api/conversations.list")]
-        Task<ChannelsResponse> GetChannels();
+        Task<SlackChannelsResponse> GetChannels();
 
         [Get("/api/conversations.history")]
-        Task<ConversationHistoryResponse> GetConversationHistory(
+        Task<SlackConversationHistoryResponse> GetConversationHistory(
             [AliasAs("channel")]string channelId
             );
 
