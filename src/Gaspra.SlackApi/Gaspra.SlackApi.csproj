@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Authors>Richard Lawrence</Authors>
+    <Company>Gaspra</Company>
+    <Description>Simple Slack API for getting and posting messages</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Gaspra/Gaspra.SlackApi</PackageProjectUrl>
+    <PackageIcon>Gaspra.SlackApi.png</PackageIcon>
+    <PackageIconUrl />
+    <RepositoryUrl>https://github.com/Gaspra/Gaspra.SlackApi</RepositoryUrl>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
+    <Version>0.1.0</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\.github\Gaspra.SlackApi.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
+</Project>
