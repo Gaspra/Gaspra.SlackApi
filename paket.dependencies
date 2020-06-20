@@ -4,3 +4,4 @@ storage: none
 framework: netcoreapp3.1
 nuget Microsoft.Extensions.DependencyInjection 3.1.5
 nuget refit 5.1.67
+nuget Microsoft.Extensions.Hosting

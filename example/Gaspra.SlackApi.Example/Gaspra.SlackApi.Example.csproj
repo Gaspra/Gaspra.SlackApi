@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
+  <ItemGroup>
+    <Reference Include="Gaspra.SlackApi">
+      <HintPath>..\..\src\Gaspra.SlackApi\bin\Debug\netcoreapp3.1\Gaspra.SlackApi.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>
