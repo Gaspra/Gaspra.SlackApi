@@ -5,6 +5,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Gaspra.SlackApi\Gaspra.SlackApi.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="Gaspra.SlackApi">
       <HintPath>..\..\src\Gaspra.SlackApi\bin\Debug\netcoreapp3.1\Gaspra.SlackApi.dll</HintPath>
     </Reference>

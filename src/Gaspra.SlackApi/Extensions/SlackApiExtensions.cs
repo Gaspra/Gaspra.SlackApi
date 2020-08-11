@@ -17,7 +17,7 @@ namespace Gaspra.SlackApi.Extensions
         {
             var channelResponse = await slackApi.GetChannels(token, searchLimit);
 
-            var channels = await RecurseSlackChannelPages(slackApi, token, channelResponse, searchLimit);
+            var channels = await RecurseChannelPagesUntilChannelExists(slackApi, token, channelResponse, channelName, searchLimit);
 
             var channelWithName = channels
                 .Where(c => c.Name.Equals(channelName))
@@ -26,17 +26,22 @@ namespace Gaspra.SlackApi.Extensions
             return channelWithName;
         }
 
-        private static async Task<IEnumerable<SlackChannel>> RecurseSlackChannelPages(ISlackApi slackApi, string token, SlackChannelsResponse slackChannelsResponse, int searchLimit)
+        private static async Task<IEnumerable<SlackChannel>> RecurseChannelPagesUntilChannelExists(ISlackApi slackApi, string token, SlackChannelsResponse slackChannelsResponse, string channelName, int searchLimit)
         {
             var slackChannels = new List<SlackChannel>();
 
             slackChannels.AddRange(slackChannelsResponse.Channels);
 
+            if(slackChannels.Any(c => c.Name.Equals(channelName)))
+            {
+                return slackChannels;
+            }
+
             if (slackChannelsResponse.NextCursor != null && !string.IsNullOrWhiteSpace(slackChannelsResponse.NextCursor.Cursor))
             {
-                var nextPageResponse = await slackApi.GetChannels(token, searchLimit);
+                var nextPageResponse = await slackApi.GetChannels(token, searchLimit, slackChannelsResponse.NextCursor.Cursor);
 
-                slackChannels.AddRange(await RecurseSlackChannelPages(slackApi, token, nextPageResponse, searchLimit));
+                slackChannels.AddRange(await RecurseChannelPagesUntilChannelExists(slackApi, token, nextPageResponse, channelName, searchLimit));
             }
 
             return slackChannels;
