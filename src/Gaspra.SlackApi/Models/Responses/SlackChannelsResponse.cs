@@ -9,5 +9,7 @@ namespace Gaspra.SlackApi.Models.Responses
         public bool Ok { get; set; }
         [JsonProperty("channels")]
         public IEnumerable<SlackChannel> Channels { get; set; }
+        [JsonProperty("response_metadata")]
+        public NextCursor NextCursor { get; set; }
     }
 }

@@ -9,7 +9,9 @@ namespace Gaspra.SlackApi.Interfaces
     {
         [Get("/api/conversations.list")]
         Task<SlackChannelsResponse> GetChannels(
-            [AliasAs("token")]string token
+            [AliasAs("token")]string token,
+            [AliasAs("limit")]int limit = 100,
+            [AliasAs("cursor")]string cursor = ""
             );
 
         [Get("/api/conversations.history")]
