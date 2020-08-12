@@ -10,8 +10,9 @@ namespace Gaspra.SlackApi.Interfaces
         [Get("/api/conversations.list")]
         Task<SlackChannelsResponse> GetChannels(
             [AliasAs("token")]string token,
-            [AliasAs("limit")]int limit = 100,
-            [AliasAs("cursor")]string cursor = ""
+            [AliasAs("types")]string types,
+            [AliasAs("limit")]int limit,
+            [AliasAs("cursor")]string cursor
             );
 
         [Get("/api/conversations.history")]
@@ -21,14 +22,7 @@ namespace Gaspra.SlackApi.Interfaces
             );
 
         [Post("/api/chat.postMessage")]
-        Task PostMessage(
-            [AliasAs("token")]string token,
-            [AliasAs("channel")]string channelId,
-            [AliasAs("text")]string message
-            );
-
-        [Post("/api/chat.postMessage")]
-        Task<SlackMessage> PostMessageAndReturnDetails(
+        Task<SlackMessage> PostMessage(
             [AliasAs("token")]string token,
             [AliasAs("channel")]string channelId,
             [AliasAs("text")]string message

@@ -1,5 +1,6 @@
 ﻿using Gaspra.SlackApi.Interfaces;
 using Gaspra.SlackApi.Models;
+using Gaspra.SlackApi.Models.Enums;
 using Gaspra.SlackApi.Models.Responses;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,11 @@ namespace Gaspra.SlackApi.Extensions
             string channelName,
             int searchLimit = 100)
         {
-            var channelResponse = await slackApi.GetChannels(token, searchLimit);
+            var channelTypes = $"{ChannelTypes.PrivateChannel.GetDescription()},{ChannelTypes.PublicChannel.GetDescription()}";
 
-            var channels = await RecurseChannelPagesUntilChannelExists(slackApi, token, channelResponse, channelName, searchLimit);
+            var channelResponse = await slackApi.GetChannels(token, channelTypes, searchLimit, "");
+
+            var channels = await RecurseChannelPagesUntilChannelIsFound(slackApi, channelTypes, token, channelResponse, channelName, searchLimit);
 
             var channelWithName = channels
                 .Where(c => c.Name.Equals(channelName))
@@ -26,7 +29,7 @@ namespace Gaspra.SlackApi.Extensions
             return channelWithName;
         }
 
-        private static async Task<IEnumerable<SlackChannel>> RecurseChannelPagesUntilChannelExists(ISlackApi slackApi, string token, SlackChannelsResponse slackChannelsResponse, string channelName, int searchLimit)
+        private static async Task<IEnumerable<SlackChannel>> RecurseChannelPagesUntilChannelIsFound(ISlackApi slackApi, string channelTypes, string token, SlackChannelsResponse slackChannelsResponse, string channelName, int searchLimit)
         {
             var slackChannels = new List<SlackChannel>();
 
@@ -39,9 +42,9 @@ namespace Gaspra.SlackApi.Extensions
 
             if (slackChannelsResponse.NextCursor != null && !string.IsNullOrWhiteSpace(slackChannelsResponse.NextCursor.Cursor))
             {
-                var nextPageResponse = await slackApi.GetChannels(token, searchLimit, slackChannelsResponse.NextCursor.Cursor);
+                var nextPageResponse = await slackApi.GetChannels(token, channelTypes, searchLimit, slackChannelsResponse.NextCursor.Cursor);
 
-                slackChannels.AddRange(await RecurseChannelPagesUntilChannelExists(slackApi, token, nextPageResponse, channelName, searchLimit));
+                slackChannels.AddRange(await RecurseChannelPagesUntilChannelIsFound(slackApi, channelTypes, token, nextPageResponse, channelName, searchLimit));
             }
 
             return slackChannels;
