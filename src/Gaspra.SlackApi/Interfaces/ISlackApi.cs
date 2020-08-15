@@ -15,6 +15,13 @@ namespace Gaspra.SlackApi.Interfaces
             [AliasAs("cursor")]string cursor
             );
 
+        [Get("/api/users.list")]
+        Task<SlackUsersResponse> GetUsers(
+            [AliasAs("token")]string token,
+            [AliasAs("limit")]int limit,
+            [AliasAs("cursor")]string cursor
+            );
+
         [Get("/api/conversations.history")]
         Task<SlackConversationHistoryResponse> GetConversationHistory(
             [AliasAs("token")]string token,

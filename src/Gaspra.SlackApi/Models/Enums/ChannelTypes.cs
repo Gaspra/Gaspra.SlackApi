@@ -2,7 +2,7 @@
 
 namespace Gaspra.SlackApi.Models.Enums
 {
-    enum ChannelTypes
+    public enum ChannelTypes
     {
         [Description("public_channel")]
         PublicChannel,

@@ -1,7 +1,7 @@
 ﻿using Gaspra.SlackApi.Interfaces;
 using Gaspra.SlackApi.Models;
 using Gaspra.SlackApi.Models.Enums;
-using Gaspra.SlackApi.Models.Responses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,40 +14,85 @@ namespace Gaspra.SlackApi.Extensions
             this ISlackApi slackApi,
             string token,
             string channelName,
-            int searchLimit = 100)
+            int searchLimit = 100,
+            List<ChannelTypes> channelTypes = null,
+            StringComparison stringComparison = StringComparison.InvariantCultureIgnoreCase)
         {
-            var channelTypes = $"{ChannelTypes.PrivateChannel.GetDescription()},{ChannelTypes.PublicChannel.GetDescription()}";
+            if(channelTypes == null)
+            {
+                channelTypes = new List<ChannelTypes> { ChannelTypes.PrivateChannel, ChannelTypes.PublicChannel };
+            }
 
-            var channelResponse = await slackApi.GetChannels(token, channelTypes, searchLimit, "");
+            var channelTypesString = string.Join(",", channelTypes.Select(t => t.GetDescription()));
 
-            var channels = await RecurseChannelPagesUntilChannelIsFound(slackApi, channelTypes, token, channelResponse, channelName, searchLimit);
+            var endSearch = false;
 
-            var channelWithName = channels
-                .Where(c => c.Name.Equals(channelName))
-                .FirstOrDefault();
+            SlackChannel channelWithName = null;
+
+            var apiCursor = "";
+
+            while (!endSearch && channelWithName == null)
+            {
+                var channelResponse = await slackApi.GetChannels(token, channelTypesString, searchLimit, apiCursor);
+
+                if (channelResponse.Ok)
+                {
+                    channelWithName = channelResponse
+                        .Channels
+                        .Where(c => c.Name.Equals(channelName, stringComparison))
+                        .FirstOrDefault();
+
+                    apiCursor = channelResponse
+                        .NextCursor
+                        .Cursor;
+                }
+                else
+                {
+                    // something when wrong when communicating with
+                    // the slack, end early and return null
+                    endSearch = true;
+                }
+            }
 
             return channelWithName;
         }
 
-        private static async Task<IEnumerable<SlackChannel>> RecurseChannelPagesUntilChannelIsFound(ISlackApi slackApi, string channelTypes, string token, SlackChannelsResponse slackChannelsResponse, string channelName, int searchLimit)
+        public static async Task<SlackUser> GetSlackUserWithName(
+            this ISlackApi slackApi,
+            string token,
+            string name,
+            int searchLimit = 50)
         {
-            var slackChannels = new List<SlackChannel>();
+            var endSearch = false;
 
-            slackChannels.AddRange(slackChannelsResponse.Channels);
+            SlackUser userWithName = null;
 
-            if(slackChannels.Any(c => c.Name.Equals(channelName)))
+            var apiCursor = "";
+
+            while (!endSearch && userWithName == null)
             {
-                return slackChannels;
+                var userResponse = await slackApi.GetUsers(token, searchLimit, apiCursor);
+
+                if (userResponse.Ok)
+                {
+                    userWithName = userResponse
+                        .Users
+                        .Where(u => u.Name.Equals(name))
+                        .FirstOrDefault();
+
+                    apiCursor = userResponse
+                        .NextCursor
+                        .Cursor;
+                }
+                else
+                {
+                    // something when wrong when communicating with
+                    // the slack, end early and return null
+                    endSearch = true;
+                }
             }
 
-            if (slackChannelsResponse.NextCursor != null && !string.IsNullOrWhiteSpace(slackChannelsResponse.NextCursor.Cursor))
-            {
-                var nextPageResponse = await slackApi.GetChannels(token, channelTypes, searchLimit, slackChannelsResponse.NextCursor.Cursor);
-
-                slackChannels.AddRange(await RecurseChannelPagesUntilChannelIsFound(slackApi, channelTypes, token, nextPageResponse, channelName, searchLimit));
-            }
-
-            return slackChannels;
+            return userWithName;
         }
     }
 }
