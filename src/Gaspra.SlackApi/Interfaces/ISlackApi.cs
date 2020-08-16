@@ -29,7 +29,7 @@ namespace Gaspra.SlackApi.Interfaces
             );
 
         [Post("/api/chat.postMessage")]
-        Task<SlackMessage> PostMessage(
+        Task<SlackPostMessageResponse> PostMessage(
             [AliasAs("token")]string token,
             [AliasAs("channel")]string channelId,
             [AliasAs("text")]string message

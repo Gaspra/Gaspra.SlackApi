@@ -22,19 +22,18 @@ namespace Gaspra.SlackApi.Example
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            var channel = await _slackApi.GetSlackChannelWithName(token, channelName);
+            var postMessageResponse = await _slackApi.PostMessage(token, channelName, $":smiley: I'm posting to the `{channelName}` channel");
 
-            if (channel == null) throw new Exception($"Unable to find channel with name: {channelName}");
-
-            var message = await _slackApi.PostMessage(token, channel.Id, $":smiley: I'm posting to the `{channelName}` channel");
-
-            for (var i = 0; i < 5; i++)
+            if (postMessageResponse.Ok)
             {
-                await _slackApi.PostInThread(
-                    token,
-                    channel.Id,
-                    message.ThreadId,
-                    $"Posting in thread: `{i + 1} / 5`");
+                for (var i = 0; i < 3; i++)
+                {
+                    await _slackApi.PostInThread(
+                        token,
+                        channelName,
+                        postMessageResponse.Message.ThreadId,
+                        $"Posting in thread: `{i + 1} / 3`");
+                }
             }
         }
 
