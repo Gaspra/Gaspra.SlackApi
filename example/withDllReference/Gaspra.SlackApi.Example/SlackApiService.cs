@@ -26,7 +26,7 @@ namespace Gaspra.SlackApi.Example
 
             if (channel == null) throw new Exception($"Unable to find channel with name: {channelName}");
 
-            var message = await slackApi.PostMessageAndReturnDetails(token, channel.Id, $":smiley: I'm posting to the `{channelName}` channel");
+            var message = await slackApi.PostMessage(token, channel.Id, $":smiley: I'm posting to the `{channelName}` channel");
 
             for (var i = 0; i < 5; i++)
             {

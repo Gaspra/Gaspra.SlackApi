@@ -1,4 +1,4 @@
-push-location ..
+push-location ../../
 
 dotnet tool restore
 

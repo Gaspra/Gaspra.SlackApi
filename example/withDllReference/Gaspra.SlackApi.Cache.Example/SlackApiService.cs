@@ -67,7 +67,7 @@ namespace Gaspra.SlackApi.Cache.Example
         {
             var cacheEntry = await memoryCache.GetOrCreateAsync(message, entry =>
             {
-                var message = slackApi.PostMessageAndReturnDetails(token, slackChannel.Id, entry.Key.ToString());
+                var message = slackApi.PostMessage(token, slackChannel.Id, entry.Key.ToString());
 
                 var cacheEntryOptions = new MemoryCacheEntryOptions()
                     .SetSlidingExpiration(TimeSpan.FromSeconds(3))
