@@ -8,40 +8,6 @@ Simple .NET Core 3.1 class library for making Slack API calls.
 
 ### Usage
 
-Unauthorised Slack API (token must be passed with each method call)
+Take a look at the example projects in the repo to get an idea of how it works.
 
-```
-public class SlackApp
-{
-    private readonly ISlackApi slackApi;
-    
-    public SlackApp (ISlackApiFactory slackApiFactory)
-    {
-        this.slackApi = slackApiFactory.CreateSlackApi();
-    }
-    
-    public async Task SendMessage()
-    {
-        await slackApi.PostMessage("token", "channelId", "message");
-    }
-}
-```
-
-Authorised Slack API
-
-```
-public class SlackApp
-{
-    private readonly IAuthorisedSlackApi authorisedSlackApi;
-    
-    public SlackApp (ISlackApiFactory slackApiFactory)
-    {
-        this.authorisedSlackApi = slackApiFactory.CreateAuthorisedSlackApi("token");
-    }
-    
-    public async Task SendMessage()
-    {
-        await authorisedSlackApi.PostMessage("channelId", "message");
-    }
-}
-```
+More details to come...
