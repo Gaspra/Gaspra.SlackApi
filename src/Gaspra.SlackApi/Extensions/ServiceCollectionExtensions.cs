@@ -10,7 +10,7 @@ namespace Gaspra.SlackApi.Extensions
             this IServiceCollection serviceCollection)
         {
             serviceCollection
-                .AddSingleton<ISlackApiFactory, SlackApiFactory>();
+                .TryAddSingleton<ISlackApiFactory, SlackApiFactory>();
 
             return serviceCollection;
         }
@@ -22,7 +22,7 @@ namespace Gaspra.SlackApi.Extensions
                 .TryAddSingleton<ISlackApiFactory, SlackApiFactory>();
 
             serviceCollection
-                .AddSingleton((services) => services
+                .TryAddSingleton((services) => services
                     .GetService<ISlackApiFactory>()
                     .CreateSlackApi());
 
@@ -37,9 +37,19 @@ namespace Gaspra.SlackApi.Extensions
                 .TryAddSingleton<ISlackApiFactory, SlackApiFactory>();
 
             serviceCollection
-                .AddSingleton((services) => services
+                .TryAddSingleton((services) => services
                     .GetService<ISlackApiFactory>()
                     .CreateAuthorisedSlackApi(slackApiToken));
+
+            return serviceCollection;
+        }
+
+        public static IServiceCollection AddSlackApiWithExtensions(
+            this IServiceCollection serviceCollection)
+        {
+            serviceCollection
+                .AddSlackApi()
+                .TryAddSingleton<ISlackApiExtensions, SlackApiExtensions>();
 
             return serviceCollection;
         }

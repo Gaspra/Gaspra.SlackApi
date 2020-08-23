@@ -88,6 +88,7 @@ NUGET
       System.Security.AccessControl (>= 4.7)
       System.Security.Principal.Windows (>= 4.7)
     Newtonsoft.Json (12.0.3)
+    Polly (7.2.1)
     refit (5.1.67)
       Newtonsoft.Json (>= 12.0.3)
       System.Text.Json (>= 4.7.1)

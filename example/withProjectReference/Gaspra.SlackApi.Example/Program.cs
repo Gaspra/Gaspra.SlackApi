@@ -19,7 +19,7 @@ namespace Gaspra.SlackApi.Example
             .ConfigureServices((host, services) =>
             {
                 services
-                    .AddSlackApi()
+                    .AddSlackApiWithExtensions()
                     .AddHostedService<SlackApiService>();
             });
     }
