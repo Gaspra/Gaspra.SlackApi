@@ -6,22 +6,20 @@ using System.Threading.Tasks;
 
 namespace Gaspra.SlackApi.Interfaces
 {
-    public interface ISlackApiExtensions
+    public interface IPostMessageExtensions
     {
-        Task<SlackPostMessageResponse> PostMessageWithRetry(
+        Task<SlackPostMessageResponse> PostMessageWithRetryOnErrors(
             string token,
-            string channelId,
-            string message,
-            int retryCount = 3,
-            long ticksBetweenRetries = 5000000
-        );
-
-        Task<SlackPostMessageResponse> PostMessageWithRetry(
-            string token,
-            string channelId,
+            string channel,
             string message,
             int retryCount,
             Func<int, TimeSpan> waitTime,
             IList<ErrorTypes> retryErrorTypes);
+
+        Task<SlackPostMessageResponse> PostMessageWithRateLimitRetry(
+            string token,
+            string channel,
+            string message,
+            int retryCount = 5);
     }
 }

@@ -3,7 +3,7 @@ using Gaspra.SlackApi.Interfaces;
 using Refit;
 using System.Threading.Tasks;
 
-namespace Gaspra.SlackApi
+namespace Gaspra.SlackApi.Factory
 {
     public class SlackApiFactory : ISlackApiFactory
     {

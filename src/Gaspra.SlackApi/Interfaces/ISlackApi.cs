@@ -25,20 +25,20 @@ namespace Gaspra.SlackApi.Interfaces
         [Get("/api/conversations.history")]
         Task<SlackConversationHistoryResponse> GetConversationHistory(
             [AliasAs("token")]string token,
-            [AliasAs("channel")]string channelId
+            [AliasAs("channel")]string channel
             );
 
         [Post("/api/chat.postMessage")]
         Task<SlackPostMessageResponse> PostMessage(
             [AliasAs("token")]string token,
-            [AliasAs("channel")]string channelId,
+            [AliasAs("channel")]string channel,
             [AliasAs("text")]string message
             );
 
         [Post("/api/chat.postMessage")]
         Task PostInThread(
             [AliasAs("token")]string token,
-            [AliasAs("channel")]string channelId,
+            [AliasAs("channel")]string channel,
             [AliasAs("thread_ts")]string threadId,
             [AliasAs("text")]string message
             );

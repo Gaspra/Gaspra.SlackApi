@@ -1,4 +1,5 @@
-﻿using Gaspra.SlackApi.Interfaces;
+﻿using Gaspra.SlackApi.Factory;
+using Gaspra.SlackApi.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -44,12 +45,22 @@ namespace Gaspra.SlackApi.Extensions
             return serviceCollection;
         }
 
-        public static IServiceCollection AddSlackApiWithExtensions(
+        public static IServiceCollection AddSlackApiWithPostMessageExtensions(
             this IServiceCollection serviceCollection)
         {
             serviceCollection
                 .AddSlackApi()
-                .TryAddSingleton<ISlackApiExtensions, SlackApiExtensions>();
+                .TryAddSingleton<IPostMessageExtensions, PostMessageExtensions>();
+
+            return serviceCollection;
+        }
+
+        public static IServiceCollection AddSlackApiWithSlackUserExtensions(
+            this IServiceCollection serviceCollection)
+        {
+            serviceCollection
+                .AddSlackApi()
+                .TryAddSingleton<ISlackUserExtensions, SlackUserExtensions>();
 
             return serviceCollection;
         }
