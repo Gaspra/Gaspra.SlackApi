@@ -1,5 +1,4 @@
-﻿using Gaspra.SlackApi.Models;
-using Gaspra.SlackApi.Models.Responses;
+﻿using Gaspra.SlackApi.Models.Responses;
 using Refit;
 using System.Threading.Tasks;
 
@@ -33,6 +32,14 @@ namespace Gaspra.SlackApi.Interfaces
             [AliasAs("token")]string token,
             [AliasAs("channel")]string channel,
             [AliasAs("text")]string message
+            );
+
+        [Post("/api/chat.postMessage")]
+        Task<SlackPostMessageResponse> PostMessageWithBlocks(
+            [AliasAs("token")]string token,
+            [AliasAs("channel")]string channel,
+            [AliasAs("text")]string backupMessage,
+            [AliasAs("blocks")]string blocks
             );
 
         [Post("/api/chat.postMessage")]

@@ -1,4 +1,5 @@
 ﻿using Gaspra.SlackApi.Models.Enums;
+using Gaspra.SlackApi.Models.MessageBlocks;
 using Gaspra.SlackApi.Models.Responses;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Gaspra.SlackApi.Interfaces
 {
-    public interface IPostMessageExtensions
+    public interface ISlackPostMessageExtensions
     {
         Task<SlackPostMessageResponse> PostMessageWithRetryOnErrors(
             string token,
@@ -20,6 +21,13 @@ namespace Gaspra.SlackApi.Interfaces
             string token,
             string channel,
             string message,
+            int retryCount = 5);
+
+        Task<SlackPostMessageResponse> PostBlockMessageWithRateLimitRetry(
+            string token,
+            string channel,
+            string backupMessage,
+            IList<ISlackMessageBlock> slackMessageBlocks,
             int retryCount = 5);
     }
 }

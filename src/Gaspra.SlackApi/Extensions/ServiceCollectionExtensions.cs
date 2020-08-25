@@ -50,7 +50,7 @@ namespace Gaspra.SlackApi.Extensions
         {
             serviceCollection
                 .AddSlackApi()
-                .TryAddSingleton<IPostMessageExtensions, PostMessageExtensions>();
+                .TryAddSingleton<ISlackPostMessageExtensions, SlackPostMessageExtensions>();
 
             return serviceCollection;
         }

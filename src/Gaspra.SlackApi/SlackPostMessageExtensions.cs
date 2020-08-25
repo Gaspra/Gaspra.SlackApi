@@ -7,14 +7,15 @@ using Polly;
 using Refit;
 using Newtonsoft.Json;
 using Gaspra.SlackApi.Models.Enums;
+using Gaspra.SlackApi.Models.MessageBlocks;
 
 namespace Gaspra.SlackApi
 {
-    public class PostMessageExtensions : IPostMessageExtensions
+    public class SlackPostMessageExtensions : ISlackPostMessageExtensions
     {
         private readonly ISlackApi _slackApi;
 
-        public PostMessageExtensions(ISlackApi slackApi)
+        public SlackPostMessageExtensions(ISlackApi slackApi)
         {
             _slackApi = slackApi;
         }
@@ -61,6 +62,34 @@ namespace Gaspra.SlackApi
             var policyResult = await retryPolicy.ExecuteAndCaptureAsync(async () =>
             {
                 response = await _slackApi.PostMessage(token, channel, message);
+            });
+
+            if (policyResult.Outcome.Equals(OutcomeType.Failure))
+            {
+                throw policyResult.FinalException;
+            }
+
+            return response;
+        }
+
+        public async Task<SlackPostMessageResponse> PostBlockMessageWithRateLimitRetry(string token, string channel, string backupMessage, IList<ISlackMessageBlock> slackMessageBlocks, int retryCount = 5)
+        {
+            var retryPolicy = Policy
+                .Handle<ApiException>(e =>
+                {
+                    var slackFailedResponse = JsonConvert.DeserializeObject<SlackFailedResponse>(e.Content);
+
+                    return slackFailedResponse.Error.Equals(ErrorTypes.RateLimited);
+                })
+                .WaitAndRetryAsync(retryCount, (retry) => TimeSpan.FromMilliseconds(100 * retry));
+
+            SlackPostMessageResponse response = null;
+
+            var policyResult = await retryPolicy.ExecuteAndCaptureAsync(async () =>
+            {
+                var blocks = JsonConvert.SerializeObject(slackMessageBlocks, Formatting.None);
+
+                response = await _slackApi.PostMessageWithBlocks(token, channel, backupMessage, blocks);
             });
 
             if (policyResult.Outcome.Equals(OutcomeType.Failure))
