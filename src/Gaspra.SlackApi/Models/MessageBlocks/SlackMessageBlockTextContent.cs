@@ -8,7 +8,7 @@ namespace Gaspra.SlackApi.Models.MessageBlocks
     public class SlackMessageBlockTextContent
     {
         [JsonProperty("type")]
-        protected string Type { get; } = "plain_text";
+        public string Type { get; } = "plain_text";
 
         [JsonProperty("text")]
         public string Text { get; set; }

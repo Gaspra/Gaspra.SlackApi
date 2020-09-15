@@ -8,12 +8,12 @@ namespace Gaspra.SlackApi.Models.MessageBlocks
     public class SlackMessageBlockElement
     {
         [JsonProperty("type")]
-        protected string Type { get; } = "button";
+        public string Type { get; } = "button";
 
         [JsonProperty("text")]
         public SlackMessageBlockTextContent Text { get; set; }
 
         [JsonProperty("value")]
-        protected string Value { get; set; }
+        public string Value { get; set; }
     }
 }
