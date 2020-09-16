@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Gaspra.SlackApi.Models.MessageBlocks
 {
-    class SlackMessageBlockButtons : ISlackMessageBlock
+    public class SlackMessageBlockButtons : ISlackMessageBlock
     {
         [JsonProperty("type")]
         public string Type { get; } = "actions";

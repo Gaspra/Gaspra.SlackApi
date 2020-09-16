@@ -9,8 +9,7 @@ namespace Gaspra.SlackApi.Extensions.MessageBlocks
     public static class SlackMessageBlockElementExtensions
     {
         public static IReadOnlyCollection<SlackMessageBlockElement> CreateButtons(
-            this IReadOnlyCollection<string> buttonList,
-            string channelName)
+            this IReadOnlyCollection<string> buttonList)
         {
             return buttonList.Select(x => new SlackMessageBlockElement()
             {
