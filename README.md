@@ -11,3 +11,14 @@ Simple .NET Core 3.1 class library for making Slack API calls.
 Take a look at the example projects in the repo to get an idea of how it works.
 
 More details to come...
+
+
+
+
+
+
+
+
+
+
+`dotnet pack -c Release src/Gaspra.SlackApi/Gaspra.SlackApi.csproj -o .`
