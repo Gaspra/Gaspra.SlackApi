@@ -1,4 +1,5 @@
 ﻿using Gaspra.SlackApi.Models.MessageBlocks;
+using Gaspra.SlackApi.Models.MessageBlocks.Buttons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +10,16 @@ namespace Gaspra.SlackApi.Extensions.MessageBlocks
     public static class SlackMessageBlockElementExtensions
     {
         public static IReadOnlyCollection<SlackMessageBlockElement> CreateButtons(
-            this IReadOnlyCollection<string> buttonList)
+            this IReadOnlyCollection<SlackButton> buttonList)
         {
             return buttonList.Select(x => new SlackMessageBlockElement()
             {
                 Text = new SlackMessageBlockTextContent()
                 {
-                    Text = x,
+                    Text = x.Text,
                     Emoji = true
                 },
-                Value = $"as_{x}"
+                Value = x.Value
             }).ToList();
             
         }
