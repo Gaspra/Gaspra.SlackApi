@@ -10,14 +10,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Run & restore paket
-        run: .github/build.ps1
-        shell: powershell
-
       # Publish
       - name: Publish on version change
         id: publish_nuget
-        uses: rohith/publish-nuget@v2
+        uses: gaspra/publish-nuget@v3
         with:
           # Filepath of the project to be packaged, relative to root of repository
           PROJECT_FILE_PATH: src/Gaspra.SlackApi/Gaspra.SlackApi.csproj
