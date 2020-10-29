@@ -1,0 +1,7 @@
+type project
+id Gaspra.SlackApi
+authors Gaspra
+description
+  Gaspra slack api
+files
+  Gaspra.SlackApi.png ==>
