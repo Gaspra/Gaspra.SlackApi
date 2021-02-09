@@ -10,7 +10,7 @@
     <PackageIcon>Gaspra.SlackApi.png</PackageIcon>
     <PackageIconUrl />
     <RepositoryUrl>https://github.com/Gaspra/Gaspra.SlackApi</RepositoryUrl>
-    <Version>0.11.0</Version>
+    <Version>0.11.1</Version>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\.github\Gaspra.SlackApi.png">
