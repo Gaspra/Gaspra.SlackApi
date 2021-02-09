@@ -1,3 +1,4 @@
 Microsoft.Extensions.DependencyInjection
 refit
 Polly
+Newtonsoft.Json

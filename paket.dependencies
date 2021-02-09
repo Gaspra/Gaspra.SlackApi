@@ -7,3 +7,4 @@ nuget refit
 nuget Microsoft.Extensions.Hosting
 nuget Microsoft.Extensions.Caching.Memory
 nuget Polly
+nuget Newtonsoft.Json
