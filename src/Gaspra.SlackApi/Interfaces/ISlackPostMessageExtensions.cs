@@ -9,6 +9,7 @@ namespace Gaspra.SlackApi.Interfaces
 {
     public interface ISlackPostMessageExtensions
     {
+        [Obsolete("Please use the method: [PostMessageWithRateLimitRetry] instead")]
         Task<SlackPostMessageResponse> PostMessageWithRetryOnErrors(
             string token,
             string channel,
@@ -26,6 +27,21 @@ namespace Gaspra.SlackApi.Interfaces
         Task<SlackPostMessageResponse> PostBlockMessageWithRateLimitRetry(
             string token,
             string channel,
+            string backupMessage,
+            IList<ISlackMessageBlock> slackMessageBlocks,
+            int retryCount = 5);
+
+        Task<SlackPostMessageResponse> PostMessageInThreadWithRateLimitRetry(
+            string token,
+            string channel,
+            string thread,
+            string message,
+            int retryCount = 5);
+
+        Task<SlackPostMessageResponse> PostBlockMessageInThreadWithRateLimitRetry(
+            string token,
+            string channel,
+            string thread,
             string backupMessage,
             IList<ISlackMessageBlock> slackMessageBlocks,
             int retryCount = 5);

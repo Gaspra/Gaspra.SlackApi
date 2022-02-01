@@ -43,11 +43,20 @@ namespace Gaspra.SlackApi.Interfaces
             );
 
         [Post("/api/chat.postMessage")]
-        Task PostInThread(
+        Task<SlackPostMessageResponse> PostMessageInThread(
             [AliasAs("token")]string token,
             [AliasAs("channel")]string channel,
-            [AliasAs("thread_ts")]string threadId,
+            [AliasAs("thread_ts")]string thread,
             [AliasAs("text")]string message
             );
+
+        [Post("/api/chat.postMessage")]
+        Task<SlackPostMessageResponse> PostMessageWithBlocksInThread(
+            [AliasAs("token")]string token,
+            [AliasAs("channel")]string channel,
+            [AliasAs("thread_ts")]string thread,
+            [AliasAs("text")]string backupMessage,
+            [AliasAs("blocks")]string blocks
+        );
     }
 }
