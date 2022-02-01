@@ -8,7 +8,7 @@ namespace Gaspra.SlackApi.Interfaces
     {
         [Get("/api/conversations.list")]
         Task<SlackChannelsResponse> GetChannels(
-            [AliasAs("token")]string token,
+            [AliasAs("token")][Header("Authorization")]string token,
             [AliasAs("types")]string types,
             [AliasAs("limit")]int limit,
             [AliasAs("cursor")]string cursor
@@ -16,27 +16,27 @@ namespace Gaspra.SlackApi.Interfaces
 
         [Get("/api/users.list")]
         Task<SlackUsersResponse> GetUsers(
-            [AliasAs("token")]string token,
+            [AliasAs("token")][Header("Authorization")]string token,
             [AliasAs("limit")]int limit,
             [AliasAs("cursor")]string cursor
             );
 
         [Get("/api/conversations.history")]
         Task<SlackConversationHistoryResponse> GetConversationHistory(
-            [AliasAs("token")]string token,
+            [AliasAs("token")][Header("Authorization")]string token,
             [AliasAs("channel")]string channel
             );
 
         [Post("/api/chat.postMessage")]
         Task<SlackPostMessageResponse> PostMessage(
-            [AliasAs("token")]string token,
+            [AliasAs("token")][Header("Authorization")]string token,
             [AliasAs("channel")]string channel,
             [AliasAs("text")]string message
             );
 
         [Post("/api/chat.postMessage")]
         Task<SlackPostMessageResponse> PostMessageWithBlocks(
-            [AliasAs("token")]string token,
+            [AliasAs("token")][Header("Authorization")]string token,
             [AliasAs("channel")]string channel,
             [AliasAs("text")]string backupMessage,
             [AliasAs("blocks")]string blocks
@@ -44,7 +44,7 @@ namespace Gaspra.SlackApi.Interfaces
 
         [Post("/api/chat.postMessage")]
         Task<SlackPostMessageResponse> PostMessageInThread(
-            [AliasAs("token")]string token,
+            [AliasAs("token")][Header("Authorization")]string token,
             [AliasAs("channel")]string channel,
             [AliasAs("thread_ts")]string thread,
             [AliasAs("text")]string message
@@ -52,7 +52,7 @@ namespace Gaspra.SlackApi.Interfaces
 
         [Post("/api/chat.postMessage")]
         Task<SlackPostMessageResponse> PostMessageWithBlocksInThread(
-            [AliasAs("token")]string token,
+            [AliasAs("token")][Header("Authorization")]string token,
             [AliasAs("channel")]string channel,
             [AliasAs("thread_ts")]string thread,
             [AliasAs("text")]string backupMessage,

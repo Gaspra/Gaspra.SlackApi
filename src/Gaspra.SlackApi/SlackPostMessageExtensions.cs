@@ -61,7 +61,7 @@ namespace Gaspra.SlackApi
 
             var policyResult = await retryPolicy.ExecuteAndCaptureAsync(async () =>
             {
-                response = await _slackApi.PostMessage(token, channel, message);
+                response = await _slackApi.PostMessage("Bearer " + token, channel, message);
             });
 
             if (policyResult.Outcome.Equals(OutcomeType.Failure))
@@ -89,7 +89,7 @@ namespace Gaspra.SlackApi
             {
                 var blocks = JsonConvert.SerializeObject(slackMessageBlocks, Formatting.None);
 
-                response = await _slackApi.PostMessageWithBlocks(token, channel, backupMessage, blocks);
+                response = await _slackApi.PostMessageWithBlocks("Bearer " + token, channel, backupMessage, blocks);
             });
 
             if (policyResult.Outcome.Equals(OutcomeType.Failure))
@@ -115,7 +115,7 @@ namespace Gaspra.SlackApi
 
             var policyResult = await retryPolicy.ExecuteAndCaptureAsync(async () =>
             {
-                response = await _slackApi.PostMessageInThread(token, channel, thread, message);
+                response = await _slackApi.PostMessageInThread("Bearer " + token, channel, thread, message);
             });
 
             if (policyResult.Outcome.Equals(OutcomeType.Failure))
@@ -143,7 +143,7 @@ namespace Gaspra.SlackApi
             {
                 var blocks = JsonConvert.SerializeObject(slackMessageBlocks, Formatting.None);
 
-                response = await _slackApi.PostMessageWithBlocksInThread(token, channel, thread, backupMessage, blocks);
+                response = await _slackApi.PostMessageWithBlocksInThread("Bearer " + token, channel, thread, backupMessage, blocks);
             });
 
             if (policyResult.Outcome.Equals(OutcomeType.Failure))

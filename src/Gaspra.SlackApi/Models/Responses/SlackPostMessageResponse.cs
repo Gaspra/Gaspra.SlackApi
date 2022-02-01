@@ -8,5 +8,7 @@ namespace Gaspra.SlackApi.Models.Responses
         public bool Ok { get; set; }
         [JsonProperty("message")]
         public SlackMessage Message { get; set; }
+        [JsonProperty("error")]
+        public string Error { get; set; }
     }
 }
