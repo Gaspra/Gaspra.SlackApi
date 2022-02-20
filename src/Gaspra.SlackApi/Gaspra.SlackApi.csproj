@@ -9,8 +9,8 @@
     <PackageIcon>Gaspra.SlackApi.png</PackageIcon>
     <PackageIconUrl />
     <RepositoryUrl>https://github.com/Gaspra/Gaspra.SlackApi</RepositoryUrl>
-    <Version>0.13.0</Version>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Version>0.14.0</Version>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\.github\Gaspra.SlackApi.png">

@@ -1,10 +1,10 @@
 source https://api.nuget.org/v3/index.json
 
 storage: none
-framework: netcoreapp3.1
-nuget Microsoft.Extensions.DependencyInjection 3.1.5
-nuget Microsoft.Extensions.DependencyInjection.Abstractions 3.1.5
-nuget refit 5.1.67
+framework: net6.0
+nuget Microsoft.Extensions.DependencyInjection
+nuget Microsoft.Extensions.DependencyInjection.Abstractions
+nuget refit
 nuget Microsoft.Extensions.Hosting
 nuget Microsoft.Extensions.Caching.Memory
 nuget Polly
